@@ -13,13 +13,40 @@ FetchContent_Declare(SFML
 FetchContent_MakeAvailable(SFML)
 
 set(PROJECT_HEADERS 
-    include/Core/Game.h
+    WidgetLibraryEvaQube/include/Core/WidgetModel.h
+    WidgetLibraryEvaQube/include/Core/WidgetViewModel.h
+    WidgetLibraryEvaQube/include/Core/WidgetView.h
+    WidgetLibraryEvaQube/include/Core/AssetManager.h
+
+    WidgetLibraryEvaQube/include/Button/ButtonModel.h
+    WidgetLibraryEvaQube/include/Button/ButtonViewModel.h
+    WidgetLibraryEvaQube/include/Button/ButtonView.h
+
+    WidgetLibraryEvaQube/include/Image/ImageModel.h
+    WidgetLibraryEvaQube/include/Image/ImageViewModel.h
+    WidgetLibraryEvaQube/include/Image/ImageView.h
+
+    WidgetLibraryEvaQube/include/Text/TextModel.h
+    WidgetLibraryEvaQube/include/Text/TextViewModel.h
+    WidgetLibraryEvaQube/include/Text/TextView.h
 )
 
 
 set(PROJECT_SOURCES 
-    src/Core/Game.cpp
-    src/main.cpp
+    WidgetLibraryEvaQube/src/main.cpp
+    WidgetLibraryEvaQube/src/Core/AssetManager.cpp
+
+    WidgetLibraryEvaQube/src/Button/ButtonModel.cpp
+    WidgetLibraryEvaQube/src/Button/ButtonViewModel.cpp
+    WidgetLibraryEvaQube/src/Button/ButtonView.cpp
+
+    WidgetLibraryEvaQube/src/Image/ImageModel.cpp
+    WidgetLibraryEvaQube/src/Image/ImageViewModel.cpp
+    WidgetLibraryEvaQube/src/Image/ImageView.cpp
+
+    WidgetLibraryEvaQube/src/Text/TextModel.cpp
+    WidgetLibraryEvaQube/src/Text/TextViewModel.cpp
+    WidgetLibraryEvaQube/src/Text/TextView.cpp
 )
 
 set(PROJECT_FILES 
@@ -27,7 +54,7 @@ set(PROJECT_FILES
   ${PROJECT_SOURCES}
 )
 
-include_directories(${PROJECT_NAME} PRIVATE include)
+include_directories(${PROJECT_NAME} PRIVATE WidgetLibraryEvaQube/include)
 
 add_executable(${PROJECT_NAME} ${PROJECT_FILES})
 
