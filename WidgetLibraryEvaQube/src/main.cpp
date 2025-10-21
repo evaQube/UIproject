@@ -41,9 +41,9 @@ int main()
     if (!font.loadFromFile("../Data/Fonts/Roboto.ttf")) { throw std::runtime_error("Couldn't load font"); }
     TextView::TextFormat textFormat = { 
         font, 24, sf::Color::White, sf::Text::Bold, 
-        TextView::CapsStyle::CapOnlyFirstLetter, TextView::TextAlignment::Left };
+        TextView::CapsStyle::CapOnlyFirstLetter, TextView::TextAlignment::Center };
     TextView view(viewModel, { 500, 80 }, textFormat);
-    viewModel.setText("i'm A teXt \nwIth some LETTERS");
+    viewModel.setText("i'm A teXt\nwIth some LETTERS");
 
     //BUTTONS
     ButtonView::ButtonColors buttonColors = {
@@ -60,7 +60,7 @@ int main()
 
     ButtonModel bModel3;
     ButtonViewModel bViewModel3(bModel3);
-    ButtonView bView3(bViewModel3, { 100, 210 }, { 200, 50 }, buttonColors, textFormat, "Button", false);
+    ButtonView bView3(bViewModel3, { 100, 210 }, { 200, 125 }, buttonColors, textFormat, "Button\nwith\nsome lines", false);
 
     
     bViewModel1.bindOnClick([]() { std::cout << "Click 1" << std::endl; });

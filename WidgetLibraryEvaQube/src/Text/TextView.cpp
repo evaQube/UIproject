@@ -93,34 +93,65 @@ std::vector<sf::Text> TextView::createAlignedText(const sf::String& textString, 
     std::vector<std::string> lines = splitTextLines(textString);
 
     float lineSpacing = textFormat.charSize * 1.2f;
-    float currentY = textPosition.y;
+    float currentY = (textBounds.getSize() == sf::Vector2f{ 0,0 }) ?
+        textPosition.y :
+        ((textBounds.top + (textBounds.height / 2)) - ((lines.size() * lineSpacing) / 2)); //Get button box center and substract the height of all lines box to position text on button's center
 
     for (const auto& line : lines) {
 
         sf::Text textLine;
         textLine.setString(line);
         setTextFormat(textLine, textFormat);
-        sf::FloatRect bounds = textLine.getLocalBounds();
 
-        float lineX = textPosition.x;
-
-        switch (align)
+        float currentX = 0;
+        float boundsY = 0;
+        if (textBounds.getSize() == sf::Vector2f{ 0,0 }) 
         {
-        case TextAlignment::Left:
-            break;
-        case TextAlignment::Center:
-            lineX -= bounds.width / 2.f;
-            break;
-        case TextAlignment::Right:
-            lineX -= bounds.width;
-            break;
-        default:
-            std::cout << "TextView::changeTextAlignment-> case not implemented" << std::endl;
-            break;
+            sf::FloatRect bounds = textLine.getLocalBounds();
+            float lineX = textPosition.x;
+
+            switch (align)
+            {
+            case TextAlignment::Left:
+                break;
+            case TextAlignment::Center:
+                lineX -= bounds.width / 2.f;
+                break;
+            case TextAlignment::Right:
+                lineX -= bounds.width;
+                break;
+            default:
+                std::cout << "TextView::changeTextAlignment-> case not implemented" << std::endl;
+                break;
+            }
+
+            currentX = lineX - bounds.left;
+            boundsY = bounds.top;
+        }
+        else 
+        {
+            switch (align)
+            {
+            case TextAlignment::Left:
+                currentX = textBounds.left;
+                break;
+            case TextAlignment::Center:
+                currentX = (textBounds.left + (textBounds.width / 2)) - (textLine.getLocalBounds().width / 2);
+                
+                break;
+            case TextAlignment::Right:
+                currentX = (textBounds.left + textBounds.width) - textLine.getLocalBounds().width;
+                break;
+            default:
+                std::cout << "TextView::changeTextAlignment-> case not implemented" << std::endl;
+                break;
+            }
+
+            boundsY = 0;
         }
 
-
-        textLine.setPosition(lineX - bounds.left, currentY - bounds.top);
+        
+        textLine.setPosition(currentX, currentY - boundsY);
         currentY += lineSpacing;
         alignedText.push_back(textLine);
     }

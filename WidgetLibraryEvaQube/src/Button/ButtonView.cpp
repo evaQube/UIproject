@@ -35,6 +35,7 @@ ButtonView::ButtonView(ButtonViewModel& vm, const sf::Vector2f& pos,
     textView = std::make_unique<TextView>(*textViewModel, pos, textFormat);
     //FIX TEXT POSITION
 
+    textView->setTextBounds(shape.getGlobalBounds());
     textViewModel->setText(text);
 }
 

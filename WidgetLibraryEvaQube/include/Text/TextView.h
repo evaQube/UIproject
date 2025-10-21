@@ -45,6 +45,7 @@ public:
     void changeColor(sf::Color& newColor) { for (sf::Text& t : text) t.setFillColor(newColor); textFormat.color = newColor; };
     void changeFormat(TextFormat& newFormat) { for (sf::Text& t : text) setTextFormat(t, newFormat); textFormat = newFormat; };
     void changePos(const sf::Vector2f& pos) { textPosition = pos; update(); }
+    void setTextBounds(sf::FloatRect& bounds) { textBounds = bounds; update(); }
 
     void draw(sf::RenderWindow& window);
     void update();
@@ -58,6 +59,7 @@ private:
 
     sf::Vector2f textPosition{0,0};
     TextFormat textFormat;
+    sf::FloatRect textBounds;
 
     void setTextFormat(sf::Text& text, TextFormat& format);
     std::vector<std::string> splitTextLines(const std::string& text);
